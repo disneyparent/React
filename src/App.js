@@ -1,9 +1,11 @@
 import React from 'react';
-import './App.css';
+import DisneyLogin from './components/DisneyLogin';
 
 function App() {
   return (
-    <></>
+    <>
+      <DisneyLogin />
+    </>
   );
 }
 
