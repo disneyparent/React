@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
-function DisneyLogin() {
+function DisneyLogin(props) {
     const [user, setUser] = useState({
         username: '',
         password: ''
@@ -22,11 +22,26 @@ function DisneyLogin() {
 
     //Sign Up
     const submitRegister = e =>{
-        axios.post('https://obscure-scrubland-65975.herokuapp.com/', user)
+        axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/register', user)
+        .then((response) => {
+            console.log('Register', response)
+            submitLogin()
+        })
+        .catch(error => {
+            console.log('Errors found: ', error)
+        })
     }
 
     const submitLogin = e =>{
-
+        axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/login', user)
+        .then(response => {
+            console.log('submitLogin response', response)
+            localStorage.setItem('token', response.data.token)
+            props.history.push('/welcome')
+        })
+        .catch(error => {
+            console.log('submitLogin errors: ', error)
+        })
     }
 
     return (
@@ -37,7 +52,7 @@ function DisneyLogin() {
             <input
                 name="username"
                 type="text"
-                placeholder="Enter your email"
+                placeholder="Enter your username"
                 value={user.username}
                 onChange={e => handleChange(e)}
             />
@@ -53,8 +68,8 @@ function DisneyLogin() {
             />
 
             {/* Button is disabled if submitting is true, so user won't try clicking button over and over again */}
-            <button>Login</button>
-            <button>Sign Up</button>
+            <button onClick={e => submitLogin(e)}>Login</button>
+            <button onClick={e => submitRegister(e)}>Sign Up</button>
         </form>
     )
 
