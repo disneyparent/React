@@ -11,7 +11,7 @@ export const initialState = {
     isLoading: false
 };
 
-export const Reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
