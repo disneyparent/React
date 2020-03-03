@@ -1,15 +1,18 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import PrivateRoute from './components/PrivateRoute';import './App.css';
+
+import React from 'react';
+import DisneyLogin from './components/DisneyLogin';
+import Welcome from './components/Welcome'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+
 
 function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Route exact path="/" component={Login} />
-        <PrivateRoute exact path='/welcome' component={Welcome} />
-      </div>
+
+      <Route exact path = '/' component={DisneyLogin}/>
+      <Route path = '/welcome' component={Welcome} />
+
     </Router>
   );
 }
