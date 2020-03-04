@@ -25,7 +25,7 @@ function borrowBuggy(){
     setBorrowing(true); //open borrow form
 }
 
-function selectBuggy() {
+function selectBuggy(buggy) {
     setBuggyToTake(buggy); // chosen buggy set to state
     editBuggy(buggyToTake); // post buggy and use id to taken-buggies
 }
@@ -35,6 +35,11 @@ function selectBuggy() {
 //KH //////for users with buggies
 function shareBuggy(){
     setSharing(true); //open sharing form
+}
+
+function releaseBuggy(buggy){
+    setBuggyToAdd(buggy);
+    addBuggy(buggyToAdd);
 }
 
 function deleteIt(){
