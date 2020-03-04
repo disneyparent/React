@@ -28,6 +28,7 @@ function borrowBuggy(){
 // function selectBuggy(buggy) {
 //     setBuggyToTake(buggy); // chosen buggy set to state
 //     editBuggy(buggyToTake); // post buggy and use id to taken-buggies
+//     deleteBuggy(buggy); // delete chosen buggy id from buggies
 // }
 
 
@@ -37,9 +38,10 @@ function shareBuggy(){
     setSharing(true); //open sharing form
 }
 
-// function releaseBuggy(buggy){
-//     addBuggy(buggyToAdd);
-// }
+function releaseBuggy(buggy){
+    setBuggyToAdd(buggy); //buggy object set to state
+    addBuggy(buggyToAdd); //post new buggy to buggies
+}
 
 function deleteIt(){
     deleteBuggy();
@@ -131,7 +133,7 @@ const [selectedOption, setSelectedOption] = useState({
                         </select>
                         
                         <div className="button-row">
-                            <button onClick={() => setBuggyToAdd()}>Submit</button>
+                            <button onClick={() => releaseBuggy()}>Submit</button>
                             <button onClick={() => setSharing(false)}>Cancel</button>
                         </div>
                     </form>
