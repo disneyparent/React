@@ -4,7 +4,7 @@ import axios from 'axios';
 //import { deleteUser, addBuggy, getBuggy } from '../actions';
 
 
-const Welcome = () => {
+const Welcome = (props) => {
 
     // const [sharing, setSharing] = useState(false);
     // const [borrowing, setBorrowing] = useState(false);
@@ -40,17 +40,16 @@ const Welcome = () => {
 // }
 
     const buggyBorrow = e =>{
-        axios.get('')
-        .then((response) =>{
-            console.log(response)
-        })
+        props.history.push('/buggielist')
     }
 
-    const [selectedOption, setSelectedOption] = useState({
+    const [borrowSelectedOption, setBorrowSelectedOption] = useState({
         borrow: 'borrow-single-select',
+    })
+
+    const [shareSelectedOption, setShareSelectedOption] = useState({
         share: 'share-single-select'
     })
-    //setSelectedOption(selectedOption)
     
     return(
         <div>
@@ -59,18 +58,18 @@ const Welcome = () => {
                 <input type="radio"
                     name="borrow"
                     value="borrow-single-select"
-                    checked={selectedOption.borrow === "borrow-single-select"}
-                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})}                    
+                    checked={borrowSelectedOption.borrow === "borrow-single-select"}
+                    onChange={(e) => setBorrowSelectedOption({...borrowSelectedOption, [e.target.name]: e.target.value})}                    
                 />
-                <label htmlFor="borrow-single">Single Cart</label>
+                <label>Single Cart</label>
 
                 <input type ="radio" 
                     name="borrow"
                     value="borrow-double-select"
-                    checked={selectedOption.borrow === "borrow-double-select"}
-                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
+                    checked={borrowSelectedOption.borrow === "borrow-double-select"}
+                    onChange={(e) => setBorrowSelectedOption({...borrowSelectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label htmlFor="borrow-double">Double Cart</label>
+                <label>Double Cart</label>
 
                 <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
             </form>
@@ -80,18 +79,18 @@ const Welcome = () => {
                 <input type="radio"
                     name="share"
                     value="share-single-select"
-                    checked={selectedOption.share === "share-single-select"}
-                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
+                    checked={shareSelectedOption.share === "share-single-select"}
+                    onChange={(e) => setShareSelectedOption({...shareSelectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label htmlFor="single">Single Cart</label>
+                <label>Single Cart</label>
 
                 <input type ="radio" 
                     name="share"
                     value="share-double-select"
-                    checked={selectedOption.share === "share-double-select"}
-                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
+                    checked={shareSelectedOption.share === "share-double-select"}
+                    onChange={(e) => setShareSelectedOption({...shareSelectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label htmlFor="share">Double Cart</label>
+                <label>Double Cart</label>
 
                 <select>
                     <option>Chose a Location</option>
