@@ -25,11 +25,11 @@ function borrowBuggy(){
     setBorrowing(true); //open borrow form
 }
 
-// function selectBuggy(buggy) {
-//     setBuggyToTake(buggy); // chosen buggy set to state
-//     editBuggy(buggyToTake); // post buggy and use id to taken-buggies
-//     deleteBuggy(buggy); // delete chosen buggy id from buggies
-// }
+function selectBuggy(buggy) {
+    setBuggyToTake(buggy); // chosen buggy set to state
+    editBuggy(buggyToTake); // post buggy and use id to taken-buggies
+    deleteBuggy(buggy); // delete chosen buggy id from buggies
+}
 
 
 
