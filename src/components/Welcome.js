@@ -27,11 +27,9 @@ function borrowBuggy(){
 
 function selectBuggy(buggy) {
     setBuggyToTake(buggy); // chosen buggy set to state
-    editBuggy(buggyToTake); // post buggy and use id to taken-buggies
-    deleteBuggy(buggy); // delete chosen buggy id from buggies
+    // editBuggy(buggyToTake); // post buggy and use id to taken-buggies
+    // deleteBuggy(buggy); // delete chosen buggy id from buggies
 }
-
-
 
 //KH //////for users with buggies
 function shareBuggy(){
@@ -121,7 +119,7 @@ const [selectedOption, setSelectedOption] = useState({
                         <label htmlFor="share">Double Cart</label>
                         
                         <select>
-                            <option>Chose a Location</option>
+                            <option>Choose a Location</option>
                             <option>Jungle Cruise</option>
                             <option>Big Thunder Mountain</option>
                             <option>Splash Mountain</option>

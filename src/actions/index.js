@@ -1,9 +1,9 @@
 
 // import axios from 'axios';
 import AxiosWithAuth from '../utils/AxiosWithAuth';
-export const requestError= () => dispatch => {
-    return 
-}
+// export const requestError= () => dispatch => {
+//     return 
+// }
 
 
 // USER-RELATED ACTIONS
@@ -15,14 +15,14 @@ export const requestError= () => dispatch => {
 // 	.catch(error => dispatch({ type: 'GET_USER_LOSE', payload: error}))
 // }
 
-export const addUser = newUser => dispatch => {
-	return AxiosWithAuth.post(`https://obscure-scrubland-65975.herokuapp.com/api/users`, newUser)
-	.then(response => {
-		console.log(response.data)
-		dispatch({ type: 'ADD_USER_WIN', payload: response.data})})
-	.catch(error => dispatch({ type: 'ADD_USER_LOSE', payload: error})
-	)
-}
+// export const addUser = newUser => dispatch => {
+// 	return AxiosWithAuth.post(`https://obscure-scrubland-65975.herokuapp.com/api/users`, newUser)
+// 	.then(response => {
+// 		console.log(response.data)
+// 		dispatch({ type: 'ADD_USER_WIN', payload: response.data})})
+// 	.catch(error => dispatch({ type: 'ADD_USER_LOSE', payload: error})
+	// )
+// }
 
 export const deleteUser = (id) => dispatch => {
 	 AxiosWithAuth.delete(`https://obscure-scrubland-65975.herokuapp.com/api/users/${id}`)
@@ -45,8 +45,8 @@ export const deleteUser = (id) => dispatch => {
 export const addBuggy = newBuggy => dispatch => {
     return AxiosWithAuth.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/`, newBuggy)
     .then(response => {
-		console.log(response.data)
-        dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
+		console.log(response.data)})
+        // dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
