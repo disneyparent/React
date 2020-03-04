@@ -107,14 +107,14 @@ function deleteMe(){
 
                 <select>
                     <option>Chose a Location</option>
-                    <option>Jungle Cruise</option>
-                    <option>Big Thunder Mountain</option>
-                    <option>Splash Mountain</option>
-                    <option>Smuggler's Run</option>
-                    <option>Minnie's House</option>
-                    <option>It's a Small World</option>
-                    <option>Peter Pan's Flight</option>
-                    <option>Space Mountain</option>
+                    <option value="jungleCruise">Jungle Cruise</option>
+                    <option value="bigThunder">Big Thunder Mountain</option>
+                    <option value="splashMountain">Splash Mountain</option>
+                    <option value="smugglersRun">Smuggler's Run</option>
+                    <option value="minniesHouse">Minnie's House</option>
+                    <option value="smallWorld">It's a Small World</option>
+                    <option value="peterPansFlight">Peter Pan's Flight</option>
+                    <option value="spaceMountain">Space Mountain</option>
                 </select>
 
                 <button>Submit</button>
