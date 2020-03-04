@@ -17,7 +17,7 @@ const Welcome = () => {
     const [borrowing, setBorrowing] = useState(false);
 
     const [buggyToAdd, setBuggyToAdd] = useState(initialState);
-    const [buggyToTake, setBuggyToTake] = useState();
+    const [buggyToTake, setBuggyToTake] = useState(initialState);
 
     
 //KH //////for users without buggies
@@ -25,10 +25,10 @@ function borrowBuggy(){
     setBorrowing(true); //open borrow form
 }
 
-function selectBuggy(buggy) {
-    setBuggyToTake(buggy); // chosen buggy set to state
-    editBuggy(buggyToTake); // post buggy and use id to taken-buggies
-}
+// function selectBuggy(buggy) {
+//     setBuggyToTake(buggy); // chosen buggy set to state
+//     editBuggy(buggyToTake); // post buggy and use id to taken-buggies
+// }
 
 
 
@@ -37,10 +37,9 @@ function shareBuggy(){
     setSharing(true); //open sharing form
 }
 
-function releaseBuggy(buggy){
-    setBuggyToAdd(buggy);
-    addBuggy(buggyToAdd);
-}
+// function releaseBuggy(buggy){
+//     addBuggy(buggyToAdd);
+// }
 
 function deleteIt(){
     deleteBuggy();
@@ -60,6 +59,7 @@ const buggyBorrow = e =>{
     })
 }
 
+//TK
 const [selectedOption, setSelectedOption] = useState({
     borrow: 'borrow-single-select',
     share: 'share-single-select'
@@ -68,7 +68,7 @@ const [selectedOption, setSelectedOption] = useState({
 
     return(
         <div>
-            <button onClick={borrowBuggy()}>I Need to Borrow a Stroller</button>
+            <button onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button>
                 { borrowing && (
                     <form>
                     
@@ -92,14 +92,14 @@ const [selectedOption, setSelectedOption] = useState({
                         
                         <div className="button-row">
                             <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
-                            <button onClick={() => setAdding(false)}>cancel</button>
+                            <button onClick={() => setBorrowing(false)}>Cancel</button>
                         </div>
 
                     </form> 
                 )}
 
         
-            <button onClick={shareBuggy()}>I Want to Share My Stroller</button>
+            <button onClick={() => shareBuggy()}>I Want to Share My Stroller</button>
                 { sharing && (
                     <form>
                         <input type="radio"
@@ -131,8 +131,8 @@ const [selectedOption, setSelectedOption] = useState({
                         </select>
                         
                         <div className="button-row">
-                            <button onCLick={addBuggy()}>Submit</button>
-                            <button onClick={() => setAdding(false)}>cancel</button>
+                            <button onClick={() => setBuggyToAdd()}>Submit</button>
+                            <button onClick={() => setSharing(false)}>Cancel</button>
                         </div>
                     </form>
                 )}
