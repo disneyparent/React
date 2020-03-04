@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 //import { deleteUser, addBuggy, getBuggy } from '../actions';
 
 
@@ -38,44 +39,59 @@ const Welcome = () => {
 //     deleteUser();
 // }
 
+    const buggyBorrow = e =>{
+        axios.get('')
+        .then((response) =>{
+            console.log(response)
+        })
+    }
+
+    const [selectedOption, setSelectedOption] = useState({
+        borrow: 'borrow-single-select',
+        share: 'share-single-select'
+    })
+    //setSelectedOption(selectedOption)
+    
     return(
         <div>
             <form>
                 <h2>I Need to Borrow a Stroller</h2>
-                <input type="checkbox"
-                    name="single"
-                    checked="true"
-                    //value={}
-                    //onChange={e => }
+                <input type="radio"
+                    name="borrow"
+                    value="borrow-single-select"
+                    checked={selectedOption.borrow === "borrow-single-select"}
+                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})}                    
                 />
-                <label for="single">Single Cart</label>
+                <label htmlFor="borrow-single">Single Cart</label>
 
-                <input type ="checkbox" 
-                    name="double"
-                    //value={}
-                    //onChange={e => }
+                <input type ="radio" 
+                    name="borrow"
+                    value="borrow-double-select"
+                    checked={selectedOption.borrow === "borrow-double-select"}
+                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label for="double">Double Cart</label>
+                <label htmlFor="borrow-double">Double Cart</label>
 
-                <button>Submit</button>
+                <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
             </form>
 
             <form>
                 <h2>I Want to Share My Stroller</h2>
-                <input type="checkbox"
-                    name="single"
-                    checked="true"
-                    //value={}
-                    //onChange={e => }
+                <input type="radio"
+                    name="share"
+                    value="share-single-select"
+                    checked={selectedOption.share === "share-single-select"}
+                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label for="single">Single Cart</label>
+                <label htmlFor="single">Single Cart</label>
 
-                <input type ="checkbox" 
-                    name="double"
-                    //value={}
-                    //onChange={e => }
+                <input type ="radio" 
+                    name="share"
+                    value="share-double-select"
+                    checked={selectedOption.share === "share-double-select"}
+                    onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
                 />
-                <label for="double">Double Cart</label>
+                <label htmlFor="share">Double Cart</label>
 
                 <select>
                     <option>Chose a Location</option>
