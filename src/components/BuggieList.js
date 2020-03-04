@@ -21,6 +21,16 @@ function BuggieList() {
         }
     }
 
+    const sizeCheck = (item) =>{
+        if(item === 1){
+            return "Double"
+        }
+
+        else{
+            return "Single"
+        }
+    }
+
     const ifLocation = (item) =>{
         if(item === "jungleCruise"){
             return "Jungle Cruise"
@@ -69,7 +79,7 @@ function BuggieList() {
                             <h3>Available: {ifCheck(available)}</h3>
                         </div>
                         <div className="double">
-                            <h3>Double: {ifCheck(is_double)}</h3>
+                            <h3>Size: {sizeCheck(is_double)}</h3>
                         </div>
                         <div>
                             <h3>Location: {ifLocation(location)}</h3>
