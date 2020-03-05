@@ -1,6 +1,8 @@
 
 // import axios from 'axios';
+
 import axiosWithAuth from '../utils/axiosWithAuth';
+
 // export const requestError= () => dispatch => {
 //     return 
 // }
@@ -16,13 +18,18 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 // }
 
 // export const addUser = newUser => dispatch => {
+
 // 	return axiosWithAuth()
 //	.post(`https://obscure-scrubland-65975.herokuapp.com/api/users`, newUser)
+
 // 	.then(response => {
 // 		console.log(response.data)
 // 		dispatch({ type: 'ADD_USER_WIN', payload: response.data})})
 // 	.catch(error => dispatch({ type: 'ADD_USER_LOSE', payload: error})
-// 	)
+
+	// )
+
+
 // }
 
 // export const deleteUser = (id) => dispatch => {
@@ -48,8 +55,8 @@ export const addBuggy = newBuggy => dispatch => {
 	return axiosWithAuth()
 	.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/`, newBuggy)
     .then(response => {
-		console.log(response.data)
-        dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
+		console.log(response.data)})
+        // dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
