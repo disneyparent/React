@@ -32,10 +32,11 @@ function DisneyLogin(props) {
         })
     }
 
+    //Login
     const submitLogin = e =>{
         axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/login', user)
-        .then(response => {
-            console.log('submitLogin response', response)
+        .then((response) => {
+            console.log('submitLogin response', {response})
             localStorage.setItem('token', response.data.token)
             props.history.push('/welcome')
         })
@@ -47,7 +48,7 @@ function DisneyLogin(props) {
     return (
         // Create the form
         <form onSubmit={handleSubmit}>
-            {/* Create the email */}
+            {/* Create the username */}
             <label htmlFor="username">Username</label>
             <input
                 name="username"
