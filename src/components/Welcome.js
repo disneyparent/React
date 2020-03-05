@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { addBuggy } from '../actions';
 
 const initialState = {
     
         location: '',
-        is_double: false,
+        is_double: '',
         is_taken: false
     
 }
@@ -37,10 +37,19 @@ function shareBuggy(){
     setSharing(true); //open sharing form
 }
 
+function handleChange(e){
+    e.preventDefault();
+    setBuggy({...buggy, [e.target.name]: e.target.value})
+}
+
 function handleSubmit(e){
     e.preventDefault();
     console.log(buggy)//buggy object set to state
-    props.addBuggy(buggy); //post new buggy to buggies
+    addBuggy(buggy); //post new buggy to buggies
+    axiosWithAuth()
+    .get('https://obscure-scrubland-65975.herokuapp.com/api/buggies')
+    .then(response => console.log(response.data))
+    .catch(error => console.log('could not load list of owners', error))
 }
 
 
@@ -54,6 +63,7 @@ const buggyBorrow = e =>{
 const [borrowSelectedOption, setBorrowSelectedOption] = useState({
     borrow: 'borrow-single-select',
 })
+
 //USING DIFFERENT FUNCTIONS AND STATE FOR SHARE BUTTON
 // const [shareSelectedOption, setShareSelectedOption] = useState({
 //     share: 'share-single-select'
@@ -81,8 +91,10 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                     onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
                 />
                 <label>Double Cart</label>
-
-                <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
+                <div className="button-row">
+                    <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
+                    <button onClick={() => setBorrowing(false)}>Cancel</button>
+                </div>
             </form>)}
 
     
@@ -91,9 +103,9 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                 <form>
                     <label>
                         <input type="radio"
-                            name="share"
-                            value={buggy.is_double}
-                            
+                            name ="is_double"
+                            value = 'false'
+                            // checked={buggy.is_double === false}
                             onClick={() => {
                                 setBuggy({...buggy, is_double: false});
                                 console.log(buggy)
@@ -101,12 +113,11 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                         />
                         Single Cart
                     </label>
-                    
                     <label>
                         <input type ="radio" 
-                            name="share"
-                            value={buggy.is_double}
-                            
+                            name="is_double"
+                            value = 'true'
+                            // checked={buggy.is_double === true}
                             onClick={() => {
                                 setBuggy({...buggy, is_double: true});
                                 console.log(buggy)
@@ -114,9 +125,9 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                         />
                         Double Cart
                     </label>
-                    
-                    <select value={buggy.location} onChange={setBuggy({...buggy, })}>
-                        <option>Choose a Location</option>
+                    <label>Choose a Location</label>
+                    <select id='locations' name='location' value={buggy.location} onChange={(e) => {handleChange(e); console.log(buggy)}}>
+                        <option> - </option>
                         <option value="jungleCruise">Jungle Cruise</option>
                         <option value="bigThunder">Big Thunder Mountain</option>
                         <option value="splashMountain">Splash Mountain</option>

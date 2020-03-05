@@ -1,6 +1,6 @@
 
 // import axios from 'axios';
-import AxiosWithAuth from '../utils/AxiosWithAuth';
+import axiosWithAuth from '../utils/axiosWithAuth';
 // export const requestError= () => dispatch => {
 //     return 
 // }
@@ -25,7 +25,8 @@ import AxiosWithAuth from '../utils/AxiosWithAuth';
 // }
 
 export const deleteUser = (id) => dispatch => {
-	 AxiosWithAuth.delete(`https://obscure-scrubland-65975.herokuapp.com/api/users/${id}`)
+	 axiosWithAuth()
+	 .delete(`https://obscure-scrubland-65975.herokuapp.com/api/users/${id}`)
 	.then(response =>  {
 		console.log(response.data)
 		dispatch({ type: 'DELETE_USER_WIN', payload: response.data})})
@@ -43,23 +44,26 @@ export const deleteUser = (id) => dispatch => {
 // }
 
 export const addBuggy = newBuggy => dispatch => {
-    return AxiosWithAuth.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/`, newBuggy)
+	return axiosWithAuth()
+	.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies`, newBuggy)
     .then(response => {
+		dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})
 		console.log(response.data)})
-        // dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
-export const editBuggy = buggy => dispatch => {
-	return AxiosWithAuth.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`)
+export const editBuggy = (buggy, newStatus) => dispatch => {
+	return axiosWithAuth()
+	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, newStatus)
 	.then( response => {
-		console.log(response.data)
-		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})})
+		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})
+		console.log(response.data)})
 	.catch(error => dispatch({ type: 'EDIT_BUGGY_LOSE', payload: error}))
 } 
 
 export const deleteBuggy = buggy => dispatch => {
-	AxiosWithAuth.delete(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`)
+	axiosWithAuth()
+	.delete(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`)
 	.then(response => {
 		console.log(response.data)
 		dispatch({ type: 'DELETE_BUGGY_WIN', payload: response.data})})
