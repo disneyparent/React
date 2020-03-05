@@ -35,7 +35,7 @@ function DisneyLogin(props) {
     //Login
     const submitLogin = e =>{
         axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/login', user)
-        .then(response => {
+        .then((response) => {
             console.log('submitLogin response', {response})
             localStorage.setItem('token', response.data.token)
             props.history.push('/welcome')
