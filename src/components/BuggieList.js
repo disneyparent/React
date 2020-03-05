@@ -25,7 +25,7 @@ function BuggieList(props) {
         setUpBuggy({ ...buggy, [buggy.is_available]: 1});
 
         axiosWithAuth()
-        .put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, upBuggy)
+        .put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`, upBuggy)
         .then(response => {
             props.setBuggies(response.data);
             props.history.push(`/welcome`);
