@@ -54,13 +54,44 @@ const [shareSelectedOption, setShareSelectedOption] = useState({
     share: 'share-single-select'
 })
 
+const divStyle = {
+    margin: '0 auto', 
+    backgroundColor: 'gold', 
+    width: '20%', 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'center',
+    borderRadius: '10px'
+}
+
+const buttonStyle = {
+    width: '55%',
+    borderRadius: '10px',
+    padding: '2%',
+    margin: '2%'
+}
+
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'column'
+}
+
+const inButtonStyle = {
+    width: '75%',
+    borderRadius: '10px',
+    padding: '15%',
+    margin: '2%',
+    textAlign: 'center',
+    margin: '15%'
+}
+
     
     return(
-        <div> 
+        <div style={divStyle}> 
         {/*/////BORROW STROLLER FORM////*/}             
-            <button onClick={() => borrowOpen()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
+            <button style={buttonStyle} onClick={() => borrowOpen()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
             { borrowingOpen && (
-                <form>
+                <form style={formStyle}>
                
                     <input type="radio"
                         name="borrow"
@@ -79,17 +110,17 @@ const [shareSelectedOption, setShareSelectedOption] = useState({
                     />
                     <label>Double Cart</label>
 
-                    <button name="borrow" onClick={(e) => buggyBorrow(e)}>Submit</button>
-                    <button onClick={() => setBorrowing(false)}>Cancel</button>
+                    <button style={inButtonStyle} name="borrow" onClick={(e) => buggyBorrow(e)}>Submit</button>
+                    <button style={inButtonStyle} onClick={() => setBorrowing(false)}>Cancel</button>
                 </form>
             )}
                 
                 
                 
         {/*/////SHARE STROLLER FORM////*/}               
-            <button onClick={() => shareOpen()}>I Want to Share My Stroller</button> {/* show sharing form */}
+            <button style={buttonStyle} onClick={() => shareOpen()}>I Want to Share My Stroller</button> {/* show sharing form */}
             { sharingOpen && (    
-                <form>
+                <form style={formStyle}>
                     <label>
                     <input type="radio"
                         name="share"
@@ -128,8 +159,8 @@ const [shareSelectedOption, setShareSelectedOption] = useState({
                     </select>
 
                     <div className="button-row">
-                        <button onClick={() => shareBuggy(buggy)}>Submit</button>
-                        <button onClick={() => setSharing(false)}>Cancel</button>
+                        <button style={inButtonStyle} onClick={() => shareBuggy(buggy)}>Submit</button>
+                        <button style={inButtonStyle} onClick={() => setSharing(false)}>Cancel</button>
                     </div>
                 </form>
             )}

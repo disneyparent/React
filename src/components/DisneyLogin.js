@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 
 function DisneyLogin(props) {
     const [user, setUser] = useState({
@@ -45,9 +46,28 @@ function DisneyLogin(props) {
         })
     }
 
+    const formStyle = {
+        margin: '0 auto', 
+        backgroundColor: 'gold', 
+        width: '20%', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        borderRadius: '10px'
+    }
+
+    const buttonStyle = {
+        width: '55%',
+        borderRadius: '10px',
+        padding: '2%',
+        margin: '2%'
+
+    }
+
     return (
         // Create the form
-        <form onSubmit={handleSubmit}>
+
+        <form style={formStyle} onSubmit={handleSubmit}>
             {/* Create the username */}
             <label htmlFor="username">Username</label>
             <input
@@ -69,9 +89,10 @@ function DisneyLogin(props) {
             />
 
             {/* Button is disabled if submitting is true, so user won't try clicking button over and over again */}
-            <button onClick={e => submitLogin(e)}>Login</button>
-            <button onClick={e => submitRegister(e)}>Sign Up</button>
+            <button style={buttonStyle} onClick={e => submitLogin(e)}>Login</button>
+            <button style={buttonStyle} onClick={e => submitRegister(e)}>Sign Up</button>
         </form>
+
     )
 
 }

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteBuggy } from '../actions/index';
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
         
 
 function BuggieList(props) {
@@ -82,31 +83,25 @@ function BuggieList(props) {
         }
     }
 
-
-
-
     return (
         <div>
-            <ul>
-                {buggies.map(buggy =>{
-                    // const {id, available, is_double, location} = buggy;
-                    return(
-                        <li key={buggy.id}>
-                        
-                            <h3>Available: {ifCheck(buggy.available)}</h3>  
-                        
-                            <h3>Size: {sizeCheck(buggy.is_double)}</h3>  
-                    
-                            <h3>Location: {ifLocation(buggy.location)}</h3>
-                            
-                            <button onClick={() => editBuggy(buggy)}>Borrow</button>
+            {buggies.map(buggy => {
+                // const {id, available, is_double, location} = buggy;
+                return (
+                    <Card key={buggy.id} style={{margin: '2% auto', width:'20%'}}>
+                        <CardBody style={{backgroundColor: "gold"}}>
+                            <CardText style={{textAlign: 'center'}}>Available: {ifCheck(buggy.available)}</CardText>
+                            <CardText style={{textAlign: 'center'}}>Size: {sizeCheck(buggy.is_double)}</CardText>
+                            <CardText style={{textAlign: 'center'}}>Location: {ifLocation(buggy.location)}</CardText>
+                            <CardBody style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <Button onClick={() => editBuggy(buggy)}>Borrow</Button>
+                                <Button onClick={() => props.deleteBuggy(buggy.id)}>Delete</Button>
+                            </CardBody>
+                        </CardBody>
+                    </Card>
+                )
+            })}
 
-                            <button onClick={() => props.deleteBuggy(buggy.id)}>Delete</button>
-
-                        </li>
-                    )
-                })}
-            </ul>
         </div>
     )
 }
