@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { deleteUser, addBuggy, editBuggy, deleteBuggy } from '../actions';
+// import axios from 'axios';
+import { connect } from 'react-redux';
+import { addBuggy } from '../actions';
 
 const initialState = {
-    buggy: {
+    
         location: '',
         is_double: false,
         is_taken: false
-    }
+    
 }
 
-const Welcome = () => {
+const Welcome = props => {
 
  //KH //if using hidden forms instead of components:
     const [sharing, setSharing] = useState(false);
     const [borrowing, setBorrowing] = useState(false);
 
-    const [buggyToAdd, setBuggyToAdd] = useState(initialState);
-    const [buggyToTake, setBuggyToTake] = useState(initialState);
+    const [buggy, setBuggy] = useState(initialState);
 
     
 //KH //////for users without buggies
@@ -25,124 +25,132 @@ function borrowBuggy(){
     setBorrowing(true); //open borrow form
 }
 
-function selectBuggy(buggy) {
-    setBuggyToTake(buggy); // chosen buggy set to state
+//MOVED TO BUGGIELIST
+// function selectBuggy(buggy) {
+//     setBuggyToTake(buggy); // chosen buggy set to state
     // editBuggy(buggyToTake); // post buggy and use id to taken-buggies
     // deleteBuggy(buggy); // delete chosen buggy id from buggies
-}
+// }
 
 //KH //////for users with buggies
 function shareBuggy(){
     setSharing(true); //open sharing form
 }
 
-function releaseBuggy(buggy){
-    setBuggyToAdd(buggy); //buggy object set to state
-    addBuggy(buggyToAdd); //post new buggy to buggies
-}
-
-function deleteIt(){
-    deleteBuggy();
+function handleSubmit(e){
+    e.preventDefault();
+    console.log(buggy)//buggy object set to state
+    props.addBuggy(buggy); //post new buggy to buggies
 }
 
 
-//KH //////for all users
-function deleteMe(){
-    deleteUser();
-}
 
 //TK
 const buggyBorrow = e =>{
-    axios.get('')
-    .then((response) =>{
-        console.log(response)
-    })
+    props.history.push('/buggielist')
 }
 
 //TK
-const [selectedOption, setSelectedOption] = useState({
+const [borrowSelectedOption, setBorrowSelectedOption] = useState({
     borrow: 'borrow-single-select',
-    share: 'share-single-select'
 })
+//USING DIFFERENT FUNCTIONS AND STATE FOR SHARE BUTTON
+// const [shareSelectedOption, setShareSelectedOption] = useState({
+//     share: 'share-single-select'
+// })
 //setSelectedOption(selectedOption)
 
     return(
         <div>
             <button onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button>
-                { borrowing && (
-                    <form>
-                    
-                        <input type="radio"
-                            name="borrow"
-                            value="borrow-single-select"
-                            checked={selectedOption.borrow === "borrow-single-select"}
-                            onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})}                    
-                        />
-                        
-                        <label htmlFor="borrow-single">Single Cart</label>
+            { borrowing && (
+            <form>
+               
+                <input type="radio"
+                    name="borrow"
+                    value="borrow-single-select"
+                    checked={borrowSelectedOption.borrow === "borrow-single-select"}
+                    onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
+                />
+                <label>Single Cart</label>
 
-                        <input type ="radio" 
-                            name="borrow"
-                            value="borrow-double-select"
-                            checked={selectedOption.borrow === "borrow-double-select"}
-                            onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
-                        />
-                        
-                        <label htmlFor="borrow-double">Double Cart</label>
-                        
-                        <div className="button-row">
-                            <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
-                            <button onClick={() => setBorrowing(false)}>Cancel</button>
-                        </div>
+                <input type="radio"
+                    name="borrow"
+                    value="borrow-double-select"
+                    checked={borrowSelectedOption.borrow === "borrow-double-select"}
+                    onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
+                />
+                <label>Double Cart</label>
 
-                    </form> 
-                )}
+                <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
+            </form>)}
 
-        
+    
             <button onClick={() => shareBuggy()}>I Want to Share My Stroller</button>
-                { sharing && (
-                    <form>
+            { sharing && (
+                <form>
+                    <label>
                         <input type="radio"
                             name="share"
-                            value="share-single-select"
-                            checked={selectedOption.share === "share-single-select"}
-                            onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
+                            value={buggy.is_double}
+                            
+                            onClick={() => {
+                                setBuggy({...buggy, is_double: false});
+                                console.log(buggy)
+                            }}    
                         />
-                        <label htmlFor="single">Single Cart</label>
-
+                        Single Cart
+                    </label>
+                    
+                    <label>
                         <input type ="radio" 
                             name="share"
-                            value="share-double-select"
-                            checked={selectedOption.share === "share-double-select"}
-                            onChange={(e) => setSelectedOption({...selectedOption, [e.target.name]: e.target.value})} 
+                            value={buggy.is_double}
+                            
+                            onClick={() => {
+                                setBuggy({...buggy, is_double: true});
+                                console.log(buggy)
+                            }}   
                         />
-                        <label htmlFor="share">Double Cart</label>
-                        
-                        <select>
-                            <option>Choose a Location</option>
-                            <option>Jungle Cruise</option>
-                            <option>Big Thunder Mountain</option>
-                            <option>Splash Mountain</option>
-                            <option>Smuggler's Run</option>
-                            <option>Minnie's House</option>
-                            <option>It's a Small World</option>
-                            <option>Peter Pan's Flight</option>
-                            <option>Space Mountain</option>
-                        </select>
-                        
-                        <div className="button-row">
-                            <button onClick={() => releaseBuggy()}>Submit</button>
-                            <button onClick={() => setSharing(false)}>Cancel</button>
-                        </div>
-                    </form>
+                        Double Cart
+                    </label>
+                    
+                    <select value={buggy.location} onChange={setBuggy({...buggy, })}>
+                        <option>Choose a Location</option>
+                        <option value="jungleCruise">Jungle Cruise</option>
+                        <option value="bigThunder">Big Thunder Mountain</option>
+                        <option value="splashMountain">Splash Mountain</option>
+                        <option value="smugglersRun">Smuggler's Run</option>
+                        <option value="minniesHouse">Minnie's House</option>
+                        <option value="smallWorld">It's a Small World</option>
+                        <option value="peterPansFlight">Peter Pan's Flight</option>
+                        <option value="spaceMountain">Space Mountain</option>
+                    </select>
+                    
+                    <div className="button-row">
+                        <button onClick={handleSubmit}>Submit</button>
+                        <button onClick={() => setSharing(false)}>Cancel</button>
+                    </div>
+                </form>
                 )}
 
+                {/* 
                 <div className="button-row">
-                    <button onClick={() => deleteIt()}>Report Broken Buggy</button>
-                    <button onClick={() => deleteMe()}>Delete Your Account</button>
-            </div>
+                    MOVED TO BUGGIELIST<button onClick={() => deleteIt()}>Report Broken Buggy</button>
+                    NOT NEEDED<button onClick={() => deleteMe()}>Delete Your Account</button> */}
+            {/* </div> */}
         </div>
     )
 }
 
-export default Welcome;
+const mapStateToProps = state => {
+	return {
+        buggies: state.buggies,
+        buggy: state.buggy
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ addBuggy }
+)(Welcome);
