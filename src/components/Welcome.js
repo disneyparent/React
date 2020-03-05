@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import axiosWithAuth from '../utils/axiosWithAuth';
+import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { addBuggy } from '../actions';
+import { addBuggy } from '../actions/index';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 const initialState = {
     
         location: '',
-        is_double: '',
+        is_double: false,
         is_taken: false
     
 }
@@ -39,7 +39,7 @@ function shareBuggy(){
 
 function handleChange(e){
     e.preventDefault();
-    setBuggy({...buggy, [e.target.name]: e.target.value})
+    setBuggy({ [e.target.name]: e.target.value})
 }
 
 function handleSubmit(e){
@@ -54,51 +54,52 @@ function handleSubmit(e){
 
 
 
-//TK
 const buggyBorrow = e =>{
     props.history.push('/buggielist')
 }
 
-//TK
 const [borrowSelectedOption, setBorrowSelectedOption] = useState({
     borrow: 'borrow-single-select',
 })
 
-//USING DIFFERENT FUNCTIONS AND STATE FOR SHARE BUTTON
-// const [shareSelectedOption, setShareSelectedOption] = useState({
-//     share: 'share-single-select'
-// })
-//setSelectedOption(selectedOption)
-
-    return(
-        <div>
-            <button onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button>
-            { borrowing && (
-            <form>
-               
-                <input type="radio"
-                    name="borrow"
-                    value="borrow-single-select"
-                    checked={borrowSelectedOption.borrow === "borrow-single-select"}
-                    onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
-                />
-                <label>Single Cart</label>
-
-                <input type="radio"
-                    name="borrow"
-                    value="borrow-double-select"
-                    checked={borrowSelectedOption.borrow === "borrow-double-select"}
-                    onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
-                />
-                <label>Double Cart</label>
-                <div className="button-row">
-                    <button name="borrow" onClick={e => buggyBorrow(e)}>Submit</button>
-                    <button onClick={() => setBorrowing(false)}>Cancel</button>
-                </div>
-            </form>)}
+const [shareSelectedOption, setShareSelectedOption] = useState({
+    share: 'share-single-select'
+})
 
     
-            <button onClick={() => shareBuggy()}>I Want to Share My Stroller</button>
+    return(
+        <div> 
+        {/*/////BORROW STROLLER FORM////*/}             
+            <button onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
+            { borrowing && (
+                <form>
+               
+                    <input type="radio"
+                        name="borrow"
+                        value="borrow-single-select"
+                        checked={borrowSelectedOption.borrow === "borrow-single-select"}
+                        onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
+                    />
+                    <label>Single Cart</label>
+
+
+                    <input type="radio"
+                        name="borrow"
+                        value="borrow-double-select"
+                        checked={borrowSelectedOption.borrow === "borrow-double-select"}
+                        onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
+                    />
+                    <label>Double Cart</label>
+
+                    <button name="borrow" onClick={(e) => buggyBorrow(e)}>Submit</button>
+                    <button onClick={() => setBorrowing(false)}>Cancel</button>
+                </form>
+            )}
+                
+                
+                
+        {/*/////SHARE STROLLER FORM////*/}               
+            <button onClick={() => shareBuggy()}>I Want to Share My Stroller</button> {/* show sharing form */}
             { sharing && (
                 <form>
                     <label>

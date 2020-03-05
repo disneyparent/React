@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteBuggy } from '../actions/index';
-import axiosWithAuth from "../utils/axiosWithAuth';
+import axiosWithAuth from '../utils/axiosWithAuth';
         
 
 function BuggieList(props) {
