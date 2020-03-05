@@ -1,8 +1,6 @@
 
 // import axios from 'axios';
-
 import axiosWithAuth from '../utils/axiosWithAuth';
-
 // export const requestError= () => dispatch => {
 //     return 
 // }
@@ -55,23 +53,23 @@ export const addBuggy = newBuggy => dispatch => {
 	return axiosWithAuth()
 	.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/`, newBuggy)
     .then(response => {
+		dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})
 		console.log(response.data)})
-        // dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})})
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
-export const editBuggy = (buggy, updatedBuggy) => dispatch => {
+export const editBuggy = (id, newStatus) => dispatch => {
 	return axiosWithAuth()
-	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, updatedBuggy)
+	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`, newStatus)
 	.then( response => {
-		console.log(response.data)
-		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})})
+		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})
+		console.log(response.data)})
 	.catch(error => dispatch({ type: 'EDIT_BUGGY_LOSE', payload: error}))
 } 
 
-export const deleteBuggy = buggy => dispatch => {
+export const deleteBuggy = id => dispatch => {
 	axiosWithAuth()
-	.delete(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`)
+	.delete(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`)
 	.then(response => {
 		console.log(response.data)
 		dispatch({ type: 'DELETE_BUGGY_WIN', payload: response.data})})
