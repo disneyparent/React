@@ -13,8 +13,6 @@ const Welcome = (props) => {
                     console.log(response.data))
        }, []);
 
-
-
     //KH //if using hidden forms instead of components:
         const [ sharingOpen, setSharing ] = useState(false);
         const [ borrowingOpen, setBorrowing ] = useState(false);
@@ -26,7 +24,7 @@ const Welcome = (props) => {
         function shareOpen(){
             setSharing(true); //open sharing form
         }
-
+>
 
     const [ buggy, setBuggy] = useState({});
 
@@ -133,6 +131,7 @@ const [shareSelectedOption, setShareSelectedOption] = useState({
                     </div>
                 </form>
             )}
+
         </div>
     )
 }
