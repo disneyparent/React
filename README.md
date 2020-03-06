@@ -1,6 +1,6 @@
 # Disney Parent - Stroller Share ( a React app; no copyright infringment intended )
 - This repo contains a development branch to which React I and React II have pushed the following:
--  A DisneyLogin page with allows a user to sign up with a new username and password or log in with an existing account.
+-  A <b>DisneyLogin</b> page with allows a user to sign up with a new username and password or log in with an existing account.
     -( Form created by React I, POST request created by React II)
     - Both options lead to...
 -  A Welcome page where users can choose whether they want to borrow a stroller or share their stroller.
