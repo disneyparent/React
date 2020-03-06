@@ -7,7 +7,7 @@ import disney_castle from "../imgs/disney_castle.png";
 const initialState = {
     
         location: '',
-        is_double: null,
+        is_double: true,
         available: true
 }
 
