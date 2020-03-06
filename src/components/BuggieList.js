@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser, editBuggy, takeBuggy, deleteBuggy } from '../actions/index';
-import axiosWithAuth from '../utils/axiosWithAuth';
+
+import { editBuggy, deleteBuggy } from '../actions/index';
+import axiosWithAuth from "../utils/axiosWithAuth";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import disney_castle from "../imgs/disney_castle.png";
+
         
 
 function BuggieList(props) {
@@ -75,31 +79,52 @@ function BuggieList(props) {
         }
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////
 
+    const infoStyle = {
+        textAlign: 'center',
+        padding: '2%'
+    }
+
+    const buttonStyle = {
+        width: '55%',
+        borderRadius: '10px',
+        padding: '2%',
+        margin: '2%'    
+    }
+
+
+    const imgStyle= {
+        display: 'grid',
+        minHeight: '100%',
+        alignItems: 'center',
+        backgroundImage: `url(${disney_castle})`,
+        backgroundPosition: 'center',
+        //backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '100%'
+    }
 
     return (
-        <div>
-            <ul>
-                {buggies.map(buggy =>{
-                    // const {id, available, is_double, location} = buggy;
-                    return(
-                        <li key={buggy.id}>
-                        
-                            <h3>Available: {ifCheck(buggy.available)}</h3>  
-                        
-                            <h3>Size: {sizeCheck(buggy.is_double)}</h3>  
-                    
-                            <h3>Location: {ifLocation(buggy.location)}</h3>
-                            
-                            <button onClick={() => {chooseBuggy(buggy); console.log('this should be the buggy element', buggy)}}>Borrow</button>
 
-                            <button onClick={() => {props.deleteBuggy(buggy.id); window.location.reload(true);}}>Delete</button>
 
-                        </li>
-                    )
-                })}
-            </ul>
+        <div style={imgStyle}>
+            {buggies.map(buggy => {
+                // const {id, available, is_double, location} = buggy;
+                return (
+                    <Card key={buggy.id} style={{margin: '0 auto', padding: '2%'}}>
+                        <CardBody style={{backgroundColor: "gold", borderRadius: '10px'}}>
+                            <CardText style={infoStyle}>Available: {ifCheck(buggy.available)}</CardText>
+                            <CardText style={infoStyle}>Size: {sizeCheck(buggy.is_double)}</CardText>
+                            <CardText style={infoStyle}>Location: {ifLocation(buggy.location)}</CardText>
+                            <CardBody style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <Button style={buttonStyle} onClick={() => props.editBuggy(buggy.id, buggy)}>Borrow</Button>
+                                <Button style={buttonStyle} onClick={() => props.deleteBuggy(buggy.id)}>Delete</Button>
+                            </CardBody>
+                        </CardBody>
+                    </Card>
+                )
+            })}
+
         </div>
     )
 }
