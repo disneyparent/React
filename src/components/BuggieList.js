@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser, editBuggy, deleteBuggy } from '../actions/index';
+import { getUser, editBuggy, takeBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from '../utils/axiosWithAuth';
         
 
@@ -9,20 +9,29 @@ function BuggieList(props) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     const[buggies, setBuggies] = useState([]);
-    const [ data, setData ] = useState({id: useParams(), available: false })
-    const [ user , setUser ] = useState({ id: useParams()})
+    const [ buggy2, setBuggy2 ] = useState({});
+    const [ user , setUser ] = useState({id:useParams(), username: '', password:''})
 
-    const takeBuggy = (buggy) => {
-        props.getUser(user);
-        setData({...buggy, available: false});
-        props.editBuggy(buggy.id, data)          
+    const chooseBuggy = (buggy) => {
+        const bugid = buggy.id;
+        const data = {available: false}
+        props.editBuggy(bugid, data);
+        
+        setBuggy2({...buggy, available: false});
+        console.log('this should be the updated buggy', buggy2);
+
+        
+        props.takeBuggy(bugid, user);
+        window.location.reload(true);
     }
+ 
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() =>{
         axiosWithAuth().get("https://obscure-scrubland-65975.herokuapp.com/api/buggies")
             .then((response) =>{
-                console.log(response)
+                // console.log(response)
                 setBuggies(response.data)    
         })
     }, []);
@@ -83,9 +92,9 @@ function BuggieList(props) {
                     
                             <h3>Location: {ifLocation(buggy.location)}</h3>
                             
-                            <button onClick={() => {takeBuggy(buggy.id); console.log(buggy)}}>Borrow</button>
+                            <button onClick={() => {chooseBuggy(buggy); console.log('this should be the buggy element', buggy)}}>Borrow</button>
 
-                            <button onClick={() => props.deleteBuggy(buggy.id)}>Delete</button>
+                            <button onClick={() => {props.deleteBuggy(buggy.id); window.location.reload(true);}}>Delete</button>
 
                         </li>
                     )
@@ -102,6 +111,6 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ getUser, editBuggy, deleteBuggy }
+	{ getUser, editBuggy, takeBuggy, deleteBuggy }
 )(BuggieList);
 

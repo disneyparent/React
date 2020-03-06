@@ -4,11 +4,11 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 
 
 // USER-RELATED ACTIONS
-export const getUser = () => dispatch => {
+export const getUser = (id) => dispatch => {
 	return axiosWithAuth()
-	.get(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/pickedUp`)
+	.get(`https://obscure-scrubland-65975.herokuapp.com/api/login/${id}`)
 	.then(response => {
-		console.log(response.data)
+		console.log('getUser response data', response.data)
 		dispatch({ type: 'GET_USER_WIN', payload: response.data})})
 	.catch(error => dispatch({ type: 'GET_USER_LOSE', payload: error}))
 }
@@ -53,24 +53,33 @@ export const addBuggy = newBuggy => dispatch => {
 	.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/`, newBuggy)
     .then(response => {
 		dispatch({ type: 'ADD_BUGGY_WIN', payload: response.data})
-		console.log(response.data)})
+		console.log('addBuggy response data', response.data)})
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
-export const editBuggy = (user, id, data) => dispatch => {
+export  const editBuggy = (bugid, data) => dispatch => {
 	return axiosWithAuth()
-	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`, data)
+	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${bugid}`, data)
 	.then( response => {
 		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})
-		console.log(response.data)})
+		console.log('editBuggy response.data', response.data)})
 	.catch(error => dispatch({ type: 'EDIT_BUGGY_LOSE', payload: error}))
 } 
+
+export const takeBuggy = ( bugid, userid) => dispatch => {
+	return axiosWithAuth()
+	.post(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${bugid}/pickup`, userid)
+	.then(response => {
+		dispatch({ type: 'TAKE_BUGGY_WIN', payload: response.data})
+		console.log('takeBuggy response.data', response.data)})
+    .catch(error => dispatch({ type: 'TAKE_BUGGY_LOSE', payload: error}))
+}
 
 export const deleteBuggy = id => dispatch => {
 	axiosWithAuth()
 	.delete(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`)
 	.then(response => {
-		console.log(response.data)
+		console.log('deleteBuggy response data', response.data)
 		dispatch({ type: 'DELETE_BUGGY_WIN', payload: response.data})})
 	.catch(error => dispatch({ type: 'DELETE_BUGGY_LOSE', payload: error})
 	)
