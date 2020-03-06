@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import disney_castle from "../imgs/disney_castle.png";
 
 function DisneyLogin(props) {
     const [user, setUser] = useState({
@@ -45,33 +46,69 @@ function DisneyLogin(props) {
         })
     }
 
+    const formStyle = {
+        margin: '0 auto', 
+        backgroundColor: 'gold', 
+        //width: '20%', 
+        padding: '1%',
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        borderRadius: '10px',
+    }
+
+    const buttonStyle = {
+        width: '55%',
+        borderRadius: '10px',
+        padding: '2%',
+        margin: '2%'
+
+    }
+
+    const imgStyle= {
+        display: 'grid',
+        minHeight: '100vh',
+        alignItems: 'center',
+        backgroundImage: `url(${disney_castle})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '100%'
+    }
+
     return (
         // Create the form
-        <form onSubmit={handleSubmit}>
-            {/* Create the username */}
-            <label htmlFor="username">Username</label>
-            <input
-                name="username"
-                type="text"
-                placeholder="Enter your username"
-                value={user.username}
-                onChange={e => handleChange(e)}
-            />
+        <div style={imgStyle}>
+            <form style={formStyle} onSubmit={handleSubmit}>
+                {/* Create the username */}
+                <label htmlFor="username">Username</label>
+                <input
+                    name="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    value={user.username}
+                    onChange={e => handleChange(e)}
+                    required
+                />
 
-            {/* Create the password */}
-            <label htmlFor="password">Password</label>
-            <input
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                value={user.password}
-                onChange={e => handleChange(e)}
-            />
+                {/* Create the password */}
+                <label htmlFor="password">Password</label>
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={user.password}
+                    onChange={e => handleChange(e)}
+                    required
+                />
 
-            {/* Button is disabled if submitting is true, so user won't try clicking button over and over again */}
-            <button onClick={e => submitLogin(e)}>Login</button>
-            <button onClick={e => submitRegister(e)}>Sign Up</button>
-        </form>
+                {/* Button is disabled if submitting is true, so user won't try clicking button over and over again */}
+                <button style={buttonStyle} onClick={e => submitLogin(e)}>Login</button>
+                <button style={buttonStyle} onClick={e => submitRegister(e)}>Sign Up</button>
+            </form>
+        </div>
+        
+
     )
 
 }
