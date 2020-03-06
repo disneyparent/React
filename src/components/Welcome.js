@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { addBuggy } from '../actions/index';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import disney_castle from "../imgs/disney_castle.png";
 
 const initialState = {
     
         location: '',
         is_double: null,
         available: true
-    
 }
 
 const Welcome = props => {
@@ -55,7 +55,6 @@ function handleSubmit(e){
 }
 
 
-
 const buggyBorrow = e =>{
     props.history.push('/buggielist')
 }
@@ -68,14 +67,59 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
 //     share: 'share-single-select'
 // })
 
+const divStyle = {
+    margin: '0 auto', 
+    backgroundColor: 'gold', 
+    //width: '20%', 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'center',
+    borderRadius: '10px'
+}
+
+const buttonStyle = {
+    width: '55%',
+    borderRadius: '10px',
+    padding: '2%',
+    margin: '2%'
+}
+
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'column'
+}
+
+const inButtonStyle = {
+    width: '75%',
+    borderRadius: '10px',
+    padding: '15%',
+    margin: '2%',
+    textAlign: 'center',
+    margin: '15%'
+}
+
+const imgStyle= {
+    display: 'grid',
+    minHeight: '100vh',
+    alignItems: 'center',
+    backgroundImage: `url(${disney_castle})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    height: '100%'
+}
+
     
     return(
-        <div> 
+        <div style={imgStyle}>
+
+        <div style={divStyle}> 
         {/*/////BORROW STROLLER FORM////*/}             
-            <button onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
+
+            <button style={buttonStyle} onClick={() => borrowBuggy()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
             { borrowing && (
-                <form>
-               
+                <form style={formStyle}>
+
                     <input type="radio"
                         name="borrow"
                         value="borrow-single-select"
@@ -83,7 +127,6 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                         onChange={(e) => setBorrowSelectedOption({ ...borrowSelectedOption, [e.target.name]: e.target.value })}
                     />
                     <label>Single Cart</label>
-
 
                     <input type="radio"
                         name="borrow"
@@ -93,17 +136,19 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                     />
                     <label>Double Cart</label>
 
-                    <button name="borrow" onClick={(e) => buggyBorrow(e)}>Submit</button>
-                    <button onClick={() => setBorrowing(false)}>Cancel</button>
+                    <button style={inButtonStyle} name="borrow" onClick={(e) => buggyBorrow(e)}>Submit</button>
+                    <button style={inButtonStyle} onClick={() => setBorrowing(false)}>Cancel</button>
                 </form>
             )}
                 
                 
                 
         {/*/////SHARE STROLLER FORM////*/}               
-            <button onClick={() => shareBuggy()}>I Want to Share My Stroller</button> {/* show sharing form */}
-            { sharing && (
-                <form>
+
+            <button style={buttonStyle} onClick={() => shareBuggy()}>I Want to Share My Stroller</button> {/* show sharing form */}
+            { sharing && (    
+                <form style={formStyle}>
+
                     <label>
                         <input type="radio"
                             name ="is_double"
@@ -142,8 +187,10 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                     </select>
                     
                     <div className="button-row">
-                        <button onClick={handleSubmit}>Submit</button>
-                        <button onClick={() => setSharing(false)}>Cancel</button>
+
+                        <button style={inButtonStyle} onClick={handleSubmit}>Submit</button>
+                        <button style={inButtonStyle} onClick={() => setSharing(false)}>Cancel</button>
+
                     </div>
                 </form>
                 )}
@@ -153,6 +200,7 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
                     MOVED TO BUGGIELIST<button onClick={() => deleteIt()}>Report Broken Buggy</button>
                     NOT NEEDED<button onClick={() => deleteMe()}>Delete Your Account</button> */}
             {/* </div> */}
+        </div>
         </div>
     )
 }
