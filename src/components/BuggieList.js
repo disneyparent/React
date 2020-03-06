@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteBuggy } from '../actions/index';
+
+import { editBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import disney_castle from "../imgs/disney_castle.png";
@@ -11,30 +12,13 @@ function BuggieList(props) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     const[buggies, setBuggies] = useState([]);
-    const [ upBuggy, setUpBuggy ] = useState({is_double: 0, is_available: 1, location: ''});
-    const { id } = useParams();
+    // const [ buggyToUpdate, setBuggyToUpdate ] = useState({id: useParams(), available: true })
 
 
-    useEffect(() => {
-        const selectedBuggy = props.buggies.find(buggy => 
-            `${buggy.id}` === id);
-            if(selectedBuggy){
-                setUpBuggy(selectedBuggy)};
-    }, [props.buggies, id]);
-
-    const editBuggy = (buggy, upBuggy) => {
-
-        setUpBuggy({ ...buggy, [buggy.is_available]: 1});
-
-        axiosWithAuth()
-        .put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, upBuggy)
-        .then(response => {
-            props.setBuggies(response.data);
-            props.history.push(`/welcome`);
-        })
-        .catch(error => console.log('could not edit', error))
-    };
-
+    // const selectBuggyToUpdate = (buggy) => {
+    //      setBuggyToUpdate({...buggy, available: true})
+    //      props.editBuggy(buggyToUpdate)          
+    // }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() =>{
@@ -47,15 +31,15 @@ function BuggieList(props) {
 
     
     const ifCheck = (item) =>{
-        if(item === 1){
-            return "Yes"
-        } else {
+        if(item === false){
             return "No"
+        } else {
+            return "Yes"
         }
     }
 
     const sizeCheck = (item) =>{
-        if(item === 1){
+        if(item === true){
             return "Double"
         } else {
             return "Single"
@@ -84,6 +68,7 @@ function BuggieList(props) {
         }
     }
 
+
     const infoStyle = {
         textAlign: 'center',
         padding: '2%'
@@ -95,6 +80,7 @@ function BuggieList(props) {
         padding: '2%',
         margin: '2%'    
     }
+
 
     const imgStyle= {
         display: 'grid',
@@ -108,6 +94,7 @@ function BuggieList(props) {
     }
 
     return (
+
         <div style={imgStyle}>
             {buggies.map(buggy => {
                 // const {id, available, is_double, location} = buggy;
@@ -118,13 +105,14 @@ function BuggieList(props) {
                             <CardText style={infoStyle}>Size: {sizeCheck(buggy.is_double)}</CardText>
                             <CardText style={infoStyle}>Location: {ifLocation(buggy.location)}</CardText>
                             <CardBody style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                <Button style={buttonStyle} onClick={() => editBuggy(buggy)}>Borrow</Button>
+                                <Button style={buttonStyle} onClick={() => props.editBuggy(buggy.id, buggy)}>Borrow</Button>
                                 <Button style={buttonStyle} onClick={() => props.deleteBuggy(buggy.id)}>Delete</Button>
                             </CardBody>
                         </CardBody>
                     </Card>
                 )
             })}
+
 
         </div>
     )
@@ -138,6 +126,6 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ deleteBuggy }
+	{ editBuggy, deleteBuggy }
 )(BuggieList);
 
