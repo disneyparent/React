@@ -85,7 +85,8 @@ function BuggieList(props) {
     }
 
     const infoStyle = {
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: '2%'
     }
 
     const buttonStyle = {
@@ -97,11 +98,11 @@ function BuggieList(props) {
 
     const imgStyle= {
         display: 'grid',
-        minHeight: '100vh',
+        minHeight: '100%',
         alignItems: 'center',
         backgroundImage: `url(${disney_castle})`,
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        //backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         height: '100%'
     }

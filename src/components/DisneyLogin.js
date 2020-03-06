@@ -88,6 +88,7 @@ function DisneyLogin(props) {
                     placeholder="Enter your username"
                     value={user.username}
                     onChange={e => handleChange(e)}
+                    required
                 />
 
                 {/* Create the password */}
@@ -98,6 +99,7 @@ function DisneyLogin(props) {
                     placeholder="Enter your password"
                     value={user.password}
                     onChange={e => handleChange(e)}
+                    required
                 />
 
                 {/* Button is disabled if submitting is true, so user won't try clicking button over and over again */}
