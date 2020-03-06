@@ -1,30 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { editBuggy, deleteBuggy } from '../actions/index';
+import { getUser, editBuggy, takeBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import disney_castle from "../imgs/disney_castle.png";
+
         
 
 function BuggieList(props) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     const[buggies, setBuggies] = useState([]);
-    // const [ buggyToUpdate, setBuggyToUpdate ] = useState({id: useParams(), available: true })
+    const [ buggy2, setBuggy2 ] = useState({});
+    const [ user , setUser ] = useState({id:useParams(), username: '', password:''})
 
+    const chooseBuggy = (buggy) => {
+        const bugid = buggy.id;
+        const data = {available: false}
+        props.editBuggy(bugid, data);
+        
+        setBuggy2({...buggy, available: false});
+        console.log('this should be the updated buggy', buggy2);
 
-    // const selectBuggyToUpdate = (buggy) => {
-    //      setBuggyToUpdate({...buggy, available: true})
-    //      props.editBuggy(buggyToUpdate)          
-    // }
+        
+        props.takeBuggy(bugid, user);
+        window.location.reload(true);
+    }
+ 
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() =>{
         axiosWithAuth().get("https://obscure-scrubland-65975.herokuapp.com/api/buggies")
             .then((response) =>{
-                console.log(response)
+                // console.log(response)
                 setBuggies(response.data)    
         })
     }, []);
@@ -95,6 +105,7 @@ function BuggieList(props) {
 
     return (
 
+
         <div style={imgStyle}>
             {buggies.map(buggy => {
                 // const {id, available, is_double, location} = buggy;
@@ -113,19 +124,17 @@ function BuggieList(props) {
                 )
             })}
 
-
         </div>
     )
 }
 const mapStateToProps = state => {
 	return {
         buggies: state.buggies,
-        buggy: state.buggy
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ editBuggy, deleteBuggy }
+	{ getUser, editBuggy, takeBuggy, deleteBuggy }
 )(BuggieList);
 
