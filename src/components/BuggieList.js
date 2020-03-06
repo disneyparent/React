@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { editBuggy, deleteBuggy } from '../actions/index';
+import { getUser, editBuggy, takeBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import disney_castle from "../imgs/disney_castle.png";
