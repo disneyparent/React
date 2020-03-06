@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { connect } from 'react-redux'; 
 import { addBuggy } from '../actions';
+import disney_castle from "../imgs/disney_castle.png";
 
 
 const Welcome = (props) => {
@@ -57,7 +58,7 @@ const [shareSelectedOption, setShareSelectedOption] = useState({
 const divStyle = {
     margin: '0 auto', 
     backgroundColor: 'gold', 
-    width: '20%', 
+    //width: '20%', 
     display: 'flex', 
     flexDirection: 'column', 
     alignItems: 'center',
@@ -85,8 +86,21 @@ const inButtonStyle = {
     margin: '15%'
 }
 
+const imgStyle= {
+    display: 'grid',
+    minHeight: '100vh',
+    alignItems: 'center',
+    backgroundImage: `url(${disney_castle})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    height: '100%'
+}
+
     
     return(
+        <div style={imgStyle}>
+
         <div style={divStyle}> 
         {/*/////BORROW STROLLER FORM////*/}             
             <button style={buttonStyle} onClick={() => borrowOpen()}>I Need to Borrow a Stroller</button> {/*show borrow form*/}
@@ -164,6 +178,7 @@ const inButtonStyle = {
                     </div>
                 </form>
             )}
+        </div>
         </div>
     )
 }

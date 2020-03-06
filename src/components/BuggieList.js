@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { deleteBuggy } from '../actions/index';
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import disney_castle from "../imgs/disney_castle.png";
         
 
 function BuggieList(props) {
@@ -83,19 +84,41 @@ function BuggieList(props) {
         }
     }
 
+    const infoStyle = {
+        textAlign: 'center'
+    }
+
+    const buttonStyle = {
+        width: '55%',
+        borderRadius: '10px',
+        padding: '2%',
+        margin: '2%'    
+    }
+
+    const imgStyle= {
+        display: 'grid',
+        minHeight: '100vh',
+        alignItems: 'center',
+        backgroundImage: `url(${disney_castle})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '100%'
+    }
+
     return (
-        <div>
+        <div style={imgStyle}>
             {buggies.map(buggy => {
                 // const {id, available, is_double, location} = buggy;
                 return (
-                    <Card key={buggy.id} style={{margin: '2% auto', width:'20%'}}>
-                        <CardBody style={{backgroundColor: "gold"}}>
-                            <CardText style={{textAlign: 'center'}}>Available: {ifCheck(buggy.available)}</CardText>
-                            <CardText style={{textAlign: 'center'}}>Size: {sizeCheck(buggy.is_double)}</CardText>
-                            <CardText style={{textAlign: 'center'}}>Location: {ifLocation(buggy.location)}</CardText>
+                    <Card key={buggy.id} style={{margin: '0 auto', padding: '2%'}}>
+                        <CardBody style={{backgroundColor: "gold", borderRadius: '10px'}}>
+                            <CardText style={infoStyle}>Available: {ifCheck(buggy.available)}</CardText>
+                            <CardText style={infoStyle}>Size: {sizeCheck(buggy.is_double)}</CardText>
+                            <CardText style={infoStyle}>Location: {ifLocation(buggy.location)}</CardText>
                             <CardBody style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                <Button onClick={() => editBuggy(buggy)}>Borrow</Button>
-                                <Button onClick={() => props.deleteBuggy(buggy.id)}>Delete</Button>
+                                <Button style={buttonStyle} onClick={() => editBuggy(buggy)}>Borrow</Button>
+                                <Button style={buttonStyle} onClick={() => props.deleteBuggy(buggy.id)}>Delete</Button>
                             </CardBody>
                         </CardBody>
                     </Card>
