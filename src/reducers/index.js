@@ -81,6 +81,7 @@ export const reducer = (state = initialState, action) => {
         case 'EDIT_BUGGY_WIN':
             return {
                 ...state,
+                buggy: {...state.buggy, available: false},
                 buggies: [ ...state.buggies, action.payload],
                 isLoading: false,
                 error: {}

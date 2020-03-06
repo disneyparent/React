@@ -6,8 +6,8 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 const initialState = {
     
         location: '',
-        is_double: false,
-        is_taken: false
+        is_double: null,
+        available: true
     
 }
 
@@ -45,7 +45,9 @@ function handleChange(e){
 function handleSubmit(e){
     e.preventDefault();
     console.log(buggy)//buggy object set to state
-    addBuggy(buggy); //post new buggy to buggies
+    setBuggy({...buggy, available: true})
+    props.addBuggy(buggy); //post new buggy to buggies
+    
     axiosWithAuth()
     .get('https://obscure-scrubland-65975.herokuapp.com/api/buggies')
     .then(response => console.log(response.data))
@@ -62,9 +64,9 @@ const [borrowSelectedOption, setBorrowSelectedOption] = useState({
     borrow: 'borrow-single-select',
 })
 
-const [shareSelectedOption, setShareSelectedOption] = useState({
-    share: 'share-single-select'
-})
+// const [shareSelectedOption, setShareSelectedOption] = useState({
+//     share: 'share-single-select'
+// })
 
     
     return(

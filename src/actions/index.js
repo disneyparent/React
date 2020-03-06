@@ -1,11 +1,8 @@
 
 // import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
-// export const requestError= () => dispatch => {
-//     return 
-// }
 
-
+{
 // USER-RELATED ACTIONS
 // export const getUser = () => dispatch => {
 // 	return axios.get(`https://obscure-scrubland-65975.herokuapp.com/api/users`)
@@ -48,6 +45,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 //         dispatch({ type: 'GET_BUGGY_WIN', payload: response.data})})
 //         .catch(error => dispatch({ type: 'GET_BUGGY_LOSE', payload: error}))
 // }
+}
 
 export const addBuggy = newBuggy => dispatch => {
 	return axiosWithAuth()
@@ -58,9 +56,9 @@ export const addBuggy = newBuggy => dispatch => {
     .catch(error => dispatch({ type: 'ADD_BUGGY_LOSE', payload: error}))
 }
 
-export const editBuggy = (id, newStatus) => dispatch => {
+export const editBuggy = (buggy) => dispatch => {
 	return axiosWithAuth()
-	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${id}`, newStatus)
+	.put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, buggy)
 	.then( response => {
 		dispatch({ type: 'EDIT_BUGGY_WIN', payload: response.data})
 		console.log(response.data)})

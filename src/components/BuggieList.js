@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteBuggy } from '../actions/index';
+import { editBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from '../utils/axiosWithAuth';
         
 
@@ -9,30 +9,13 @@ function BuggieList(props) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     const[buggies, setBuggies] = useState([]);
-    const [ upBuggy, setUpBuggy ] = useState({is_double: 0, is_available: 1, location: ''});
-    const { id } = useParams();
+    // const [ buggyToUpdate, setBuggyToUpdate ] = useState({id: useParams(), available: true })
 
 
-    useEffect(() => {
-        const selectedBuggy = props.buggies.find(buggy => 
-            `${buggy.id}` === id);
-            if(selectedBuggy){
-                setUpBuggy(selectedBuggy)};
-    }, [props.buggies, id]);
-
-    const editBuggy = (buggy, upBuggy) => {
-
-        setUpBuggy({ ...buggy, [buggy.is_available]: 1});
-
-        axiosWithAuth()
-        .put(`https://obscure-scrubland-65975.herokuapp.com/api/buggies/${buggy.id}`, upBuggy)
-        .then(response => {
-            props.setBuggies(response.data);
-            props.history.push(`/welcome`);
-        })
-        .catch(error => console.log('could not edit', error))
-    };
-
+    // const selectBuggyToUpdate = (buggy) => {
+    //      setBuggyToUpdate({...buggy, available: true})
+    //      props.editBuggy(buggyToUpdate)          
+    // }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() =>{
@@ -45,15 +28,15 @@ function BuggieList(props) {
 
     
     const ifCheck = (item) =>{
-        if(item === 1){
-            return "Yes"
-        } else {
+        if(item === false){
             return "No"
+        } else {
+            return "Yes"
         }
     }
 
     const sizeCheck = (item) =>{
-        if(item === 1){
+        if(item === true){
             return "Double"
         } else {
             return "Single"
@@ -82,7 +65,7 @@ function BuggieList(props) {
         }
     }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
     return (
@@ -99,7 +82,7 @@ function BuggieList(props) {
                     
                             <h3>Location: {ifLocation(buggy.location)}</h3>
                             
-                            <button onClick={() => editBuggy(buggy)}>Borrow</button>
+                            <button onClick={() => props.editBuggy(buggy.id, buggy)}>Borrow</button>
 
                             <button onClick={() => props.deleteBuggy(buggy.id)}>Delete</button>
 
@@ -119,6 +102,6 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ deleteBuggy }
+	{ editBuggy, deleteBuggy }
 )(BuggieList);
 
