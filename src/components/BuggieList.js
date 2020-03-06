@@ -102,9 +102,10 @@ function BuggieList(props) {
         alignItems: 'center',
         backgroundImage: `url(${disney_castle})`,
         backgroundPosition: 'center',
-        //backgroundRepeat: 'no-repeat',
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        height: '100%'
+        height: '100%',
+        //backgroundAttachment: 'fixed'
     }
 
     return (
