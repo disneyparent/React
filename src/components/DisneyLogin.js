@@ -17,15 +17,15 @@ function DisneyLogin(props) {
         e.preventDefault()
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
+//     useEffect(() => {
+//         console.log(user)
+//     }, [user])
 
     //Sign Up
     const submitRegister = e =>{
         axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/register', user)
         .then((response) => {
-            console.log('Register', response)
+//             console.log('Register', response)
             submitLogin()
         })
         .catch(error => {
@@ -37,7 +37,7 @@ function DisneyLogin(props) {
     const submitLogin = e =>{
         axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/login', user)
         .then((response) => {
-            console.log('submitLogin response', {response})
+//             console.log('submitLogin response', {response})
             localStorage.setItem('token', response.data.token)
             props.history.push('/welcome')
         })
