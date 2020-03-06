@@ -25,7 +25,7 @@ function DisneyLogin(props) {
         axios.post('https://obscure-scrubland-65975.herokuapp.com/api/auth/register', user)
         .then((response) => {
             console.log('Register', response)
-            // submitLogin()
+            submitLogin()
         })
         .catch(error => {
             console.log('Errors found: ', error)

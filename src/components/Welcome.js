@@ -6,8 +6,8 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 const initialState = {
     
         location: '',
-        is_double: false,
-        available: false
+        is_double: null,
+        available: true
     
 }
 
@@ -47,6 +47,7 @@ function handleSubmit(e){
     console.log(buggy)//buggy object set to state
     setBuggy({...buggy, available: true})
     props.addBuggy(buggy); //post new buggy to buggies
+    
     axiosWithAuth()
     .get('https://obscure-scrubland-65975.herokuapp.com/api/buggies')
     .then(response => console.log(response.data))
