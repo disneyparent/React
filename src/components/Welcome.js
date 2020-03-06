@@ -188,7 +188,7 @@ const imgStyle= {
                     
                     <div className="button-row">
 
-                        <button style={inButtonStyle} onClick={{handleSubmit}>Submit</button>
+                        {/* <button style={inButtonStyle} onClick={{handleSubmit}>Submit</button> */}
                         <button style={inButtonStyle} onClick={() => setSharing(false)}>Cancel</button>
 
                     </div>
