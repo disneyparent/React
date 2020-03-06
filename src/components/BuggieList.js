@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editBuggy, deleteBuggy } from '../actions/index';
+import { getUser, editBuggy, deleteBuggy } from '../actions/index';
 import axiosWithAuth from '../utils/axiosWithAuth';
         
 
@@ -9,13 +9,14 @@ function BuggieList(props) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     const[buggies, setBuggies] = useState([]);
-    // const [ buggyToUpdate, setBuggyToUpdate ] = useState({id: useParams(), available: true })
+    const [ data, setData ] = useState({id: useParams(), available: false })
+    const [ user , setUser ] = useState({ id: useParams()})
 
-
-    // const selectBuggyToUpdate = (buggy) => {
-    //      setBuggyToUpdate({...buggy, available: true})
-    //      props.editBuggy(buggyToUpdate)          
-    // }
+    const takeBuggy = (buggy) => {
+        props.getUser(user);
+        setData({...buggy, available: false});
+        props.editBuggy(buggy.id, data)          
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() =>{
@@ -82,7 +83,7 @@ function BuggieList(props) {
                     
                             <h3>Location: {ifLocation(buggy.location)}</h3>
                             
-                            <button onClick={() => props.editBuggy(buggy.id, buggy)}>Borrow</button>
+                            <button onClick={() => {takeBuggy(buggy.id); console.log(buggy)}}>Borrow</button>
 
                             <button onClick={() => props.deleteBuggy(buggy.id)}>Delete</button>
 
@@ -96,12 +97,11 @@ function BuggieList(props) {
 const mapStateToProps = state => {
 	return {
         buggies: state.buggies,
-        buggy: state.buggy
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ editBuggy, deleteBuggy }
+	{ getUser, editBuggy, deleteBuggy }
 )(BuggieList);
 

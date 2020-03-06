@@ -21,14 +21,14 @@ export const reducer = (state = initialState, action) => {
 
     // USER-RELATED CASES: 
 
-        // case 'GET_USER_START':
-        //     return{...state,isLoading: true}
+        case 'GET_USER_START':
+            return{...state,isLoading: true}
 
-        // case 'GET_USER_WIN':
-        //     return{...state,users: action.payload,isLoading: false}
+        case 'GET_USER_WIN':
+            return{...state,users: action.payload,isLoading: false}
 
-        // case 'GET_USER_LOSE':
-        //     return{...state,isLoading: false}	
+        case 'GET_USER_LOSE':
+            return{...state,isLoading: false}	
 
         // case 'ADD_USER':
         //     return {...state,users: [ ...state.users, action.payload],isLoading: false}
@@ -81,7 +81,7 @@ export const reducer = (state = initialState, action) => {
         case 'EDIT_BUGGY_WIN':
             return {
                 ...state,
-                buggy: {...state.buggy, available: false},
+                buggy: {...state.buggy, available: action.payload},
                 buggies: [ ...state.buggies, action.payload],
                 isLoading: false,
                 error: {}

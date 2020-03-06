@@ -6,7 +6,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 const initialState = {
     
         location: '',
-        is_double: null,
+        is_double: true,
         available: true
     
 }
